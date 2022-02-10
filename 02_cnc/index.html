@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<title>PHYSCI 70: Intro to Digital Fabrication </title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style.css" rel="stylesheet">
+
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <div style="align-items: left; justify-content:left;" class="container-fluid">
+    <h3 style="margin: 15px"> PHYSCI 70: Intro to Digital Fabrication</h3>
+    <div class="navbar-nav">
+      <h4></h4>
+      <h4><a class="nav-link" href="../index.html">Home</a></h4>
+      <h4><a class="nav-link" href="../about.html">About</a></h4>
+    </div>
+  </div>
+</nav>
+
+
+<head>
+<style>
+
+  body
+  {
+background-color: peachpuff
+  }
+
+</style>
+</head>
+
+
+
+
+
+
+<body>
+
+
+<xmp theme="journal" style="display:none;">
+
+
+
+  ### Week Two: 2D Design and Laser Cutting
+
+  <em>Added Feb.8, 2022 AT 10:30 PM </em>
+
+  
+  <h4>The Idea</h4>
+  The basic idea was motivated by a logo that I both find asthetically pleasing and that represents quite a bit to me. It is the logo of one of the high schools that I attended before harvard, and that I absolutely loved. 
+
+  I had long wanted to try my hand at fabricating something inspired by the logo.
+![image of UWC logo](./UWClogo.jpeg) 
+
+<p>Some intial thoughts:
+  - It seems that the two overlapping circles of the logo could correspond to two converging hemispheres, just as the logo seems to be depicting. 
+  - Washers can be stacked on top of each othe or aligned veritcally to give the shape of the hemisphere.
+  - Horitonztal washers: they'll look better (?)
+  - There would be to many peices of cardboard if I expect to just stack the peices, and it wouldn't be a "press-fit kit"... so will need vertical spacers/ ridge into which the horizontal washers will slot in.
+  - Roughly a diameter of 8" for each hemisphere seems good.
+</p>
+
+  
+  <h4>Initial Design</h4> 
+
+  Though this week's assignment was meant to focus on 2D design, I spent quite a bit of time working in 3D. 
+
+  Rough outline of steps:
+  
+  1.) Create a parametric design of a series of verical peices that I will refer to as ridges.
+    It was easiest to begin the design using the model of a full sphere rather than spliting the bodies as an initial step. Using this full sphere I created a series of parameters that allowed for quick and easy changes of the width of the peices, the final diameter of the hemispheres and number of horizontal washers that I was going to use. 
+
+  A particularly handy feature was the ability to create new construction planes that were ofset according to an exporession of parameters. I had not throught that such a thing would exist, super cool. 
+
+  ![image of horizontal planes](./planes.png)
+  ![image of parameter table](./parameter.png)
+    
+  2.) Create a parmetric series of washers that fit inside of this circle.
+    This was a problem:: I expected to be able to create a parameteric version of the horizonatal washers but this was not as easy as I thought. As per the previous step I had already created the parameters necessary to make quick and easy slicing of the spehre into a given number of veritcal planes. I wanted to be able to construct washers on these horizontal planes that could be changed using parameters, but the field-box for equations would not accept the expression that I needed to input. I tried to use diferent parethesis placement, and even tried to break down the long equation into other variable. All this to no avail. 
+
+  I had to decide on a fixed diameter, a fixed face-width and begin creating the final design though it wouldn't be as editable as I had hoped. (Still I learned how valubable and timesaving parametric design is). I sliced the washers into "half-washers" to form a hemisphere, I also sliced the ridges into halves, and decided on using three supporting vertical ridges per hemisphere. 
+
+
+  ![image of sliced hemispheres](./hemi.png)
+  ![image of washers spread out](./laid.png)
+  ![image of ridge](./side.png)
+
+
+   A series of "combination" operations gave me the necessary notches. 
+
+
+
+
+
+  <h4>Fabrication</h4>
+  There were parts of even this simple design that didn't lend themselves to a quick and easy parameterization of kerf. I thought: "there must be a quick and easy way to create tool-paths in Fusion and not have to deal with accounting for kerf compensation in my parametric design". I was both right... and wrong. 
+
+  The tool-paths feature seemed promising. I toyed with this a bit, but I couldn't get the projection of the tool path onto the neccesary plane. It seemed like a trival problem and I know that in the future I will be using this function more. 
+
+  I decided that I would be accounting for kerf and the thickness of the cardboard in one given variable that I called "slot_thickness". This would still allow for parametrizing the necessary peices of the parts I was cutting (ie. the nothces where the peices would in fact be pressing together). To be clear, the rest of my design, aside from the nothces does not account for kerf and so the final cuts are smaller than the design intended them to be. A small difference, negligible in non-notch press-fit peices of the design... and a small price to pay for getting closer to efficient use of the tool-path feature. Incororate kerf into the design no more. 
+
+ <p> I cut a few small sloting pairs to fine-tune the slot thickness of my design. I settled on a slotthickness= 0.128 inches. This gave a snug fit on the thichness of cardboard, and the speed and power settings of the laser cutter (15mm/ in at 60% power). </p>
+  ![image of test peices](./test.jpeg)
+
+
+  
+
+  <h4>Final Product, well... almost </h4>
+  Final Assembly of one of the two hemispheres. 
+
+  ![image side of sphere](./hemiside.jpeg)
+  ![image front of sphere](./hemifront.jpeg)
+  ![image back of sphere](./hemiback.jpeg)
+  
+
+
+
+
+
+  To-do: the front-facing peice that will display the silhouette of the countries. A base to hold the hemisphere up. 
+
+
+  <h4>Take-aways</h4>
+  Using parameters in creating desings is the coolest thing ever. I wish I would have had this functionality in the previous programs that I have used. At the same time though I can see that not everyhting is going to lend itself to easy parametrization (if that's the word).
+
+  Remaining questions: 
+  How could I have made the horizontal washers into a parametric design? 
+
+  Why include kerf in the parametric design, this very much seems like something best left to the final steps of exporting a design. On simple designs kerf seems easy enough to keep track of, but for something of increasing complexity or a critical design it seems that incorporating kerf compensation in each and every part of a design can just be more tedious and introduces more opporitunities for designer error.
+
+
+
+
+
+
+</xmp>
+</body>
+
+<script src="https://strapdownjs.com/v/0.2/strapdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
+
+</html>
