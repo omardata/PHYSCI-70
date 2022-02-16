@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<title>PHYSCI 70: Intro to Digital Fabrication </title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style.css" rel="stylesheet">
+
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <div style="align-items: left; justify-content:left;" class="container-fluid">
+    <h3 style="margin: 15px"> PHYSCI 70: Intro to Digital Fabrication</h3>
+    <div class="navbar-nav">
+      <h4></h4>
+      <h4><a class="nav-link" href="../index.html">Home</a></h4>
+      <h4><a class="nav-link" href="../about.html">About</a></h4>
+    </div>
+  </div>
+</nav>
+
+
+<head>
+<style>
+
+  body
+  {
+background-color: peachpuff
+  }
+
+</style>
+</head>
+
+
+
+
+
+
+<body>
+
+
+<xmp theme="journal" style="display:none;">
+
+
+
+  ### Week Three: Hand Tools and Fabrication
+
+  <em>Added Feb 15, 11 PM </em>
+
+
+
+  <h4>The Idea</h4> 
+This week I really wanted to spend as little time as possible on my computer modeling and forming parts. To that end I cut a number of gears, and spent the majority of my time in the lab toying with them, setting them up in different configurations and developing a feel for gear ratios and how to understand them. Minimal upfront planning and a lot of experimentation and tacticle experiential learning. 
+
+My favorite watch is a mechanical one with an open face–- I find the many shapes and movements pleasing to look at. The idea of leaving as much time to myself to play with the gears works well with the idea to to keep the end product simple, elegant perhaps, like the  watch. 
+ 
+ I want to work with a material I haven't this far–– wood or arcrlic? There is a nice combination of black and clear acrylic–– naturally the clear will make for a great background and the black great gears. 
+
+  <h4> Fabrication</h4>
+
+ First step is to cut a rectangular peice of material in which to house my drive and gears. I think of this as analagous to the frame/ housing of my watch. With the most upfront planning of the project I create a  slot in this rectangular peice in which to mount the DC motor and gearbox easily and securely.
+
+ Next, cut gears. Because this week I want to use my hands on objects not on my computer, I decide on an efficient way of making gears. After toying with
+ <a href="https://evolventdesign.com/pages/spur-gear-generator">this online gear making tool</a> for a while, I have a better intuion as to the rough dimensions of differing combinations of gear parameters. I decide to make it easy to keep track of and create a spur gears of 10, 20, 30, 40, and 45 teeth. I mess around with the program and see that I can even quickly make an internal spur gear. The website lets me export to SVG file and from there it is straight to the machine for cutting. 
+
+ Here is a picture of the parameters I used for the gears that I created–– for the most part I only altered the number of teeth for each new gear. 
+  ![image of gear parameters](./para.png) 
+
+  <p>Picture of what I'm calling the internal spur gear </p>
+  ![image of gear parameters](./int.png) 
+
+
+ <p>Each peice of the acrylic I'm cutting is rougly 0.25" thick. 5mm/sec at 75% power on the laser cutter seems to work fine, even if at the expense of what seems to wide a kerf.. maybe faster of less power next time. </p>
+
+ I realized I would also need a drive gear to attach to the motor, I alter the design of a small 10-toothed gear to fit snugly over the drive shaft. It takes a few cuts to get it just right, but now the gear presses on to the shaft with no  need to secure it further.
+
+
+
+  <h4>Assembly</h4>
+ <p>Here is where I spent a lot of time thiking of and toying with different configurations of the gears that I had cut. I settled on a combination that seemed to maintain a possible range of speeds that were pleasing to listen to as the motor was engaged. After placing the gears in the position I wanted, I clamped the gear to the base, and  used a hand drill to make holes in the clear backing plate on which to mount the gears. The drill bit I used was just perfecly to use machine screws with no nut–– I threaded them direcrtly into the acrylic, and while not a suitable solution for long term use it made for rapid protyping of differing position and combinations of gears. </p>
+
+   <p>As I kept adding gears I realized that even minute changes in the position of the drill bit was producing a slight grating of the gears. A few times the gears got stuck and required more and more power to run unincumbered. </p>
+
+   <p>I chose an orientaion of the gears that would look cool, but that had no real purpose other than to allow me to move gears around. After a while I tired of toying only with the gears. I thought of trying my hand at including linkages between the gears. The internal spur gear that I cut made for a good candidate to move using not a gear interface but a gear to a series of linkages that would (I thought) rotate this internal spur gear shown in the lower right qudrant. </p>
+
+   <p>I cut a few peices of linkage out and began to toy with it, and develope a better understanding of how attatching certain points of the linkage to a moving point (attatched to a gear or another point on a linkage bar) or a fixed point (attatched to the clear arylic background) changed the range of allowed motion of other points on the bar. </p>
+
+   <p>I thought that getting the outer ring of the gear cluster in the lower right would be a trivial and quick problem to solve–– maybe it is, but I was unable to find a timely solution. (Being fair to myself though I decided to stay away from looking up potential answers online, thinking I could make sense of the geometry using quick sketches and by toying with a seemingly infinite combimation of linkages).</p>
+
+   <p>The price to be paid for my experimetation with the linakges was the eventual burnout of my motor's internal gearbox. Two links ceased up in a way I hadn't expected, caused undue strain on the motor that I was running at high voltage and before I knew it the motor's only response was a high-pitched sound with no movement.</p> 
+
+  <h4>Final Product, well... almost </h4>
+
+  <p> Including one iteration of linkage bars</p>
+  ![image of final product](./links.png) 
+
+  <p> Some linkage bars removed after motor faulure </p>
+  ![image of final product](./wood.png) 
+
+ Here's the simple, but inelegant unfinshed product. Moving the gears by hand because the motor burned out before I documented it running under power.
+  ![video of moving gears](./fin.gif)
+  
+  To-do: Figure out linkage problem. 
+
+  <h4>Take-aways</h4>
+  If something is working, even partially document it, document it before you "fix" it enough that it stops working entirely. 
+
+
+
+
+
+
+
+</xmp>
+</body>
+
+<script src="https://strapdownjs.com/v/0.2/strapdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
+
+</html>
