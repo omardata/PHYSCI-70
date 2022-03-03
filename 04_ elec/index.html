@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<title>PHYSCI 70: Intro to Digital Fabrication </title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style.css" rel="stylesheet">
+
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <div style="align-items: left; justify-content:left;" class="container-fluid">
+    <h3 style="margin: 15px"> PHYSCI 70: Intro to Digital Fabrication</h3>
+    <div class="navbar-nav">
+      <h4></h4>
+      <h4><a class="nav-link" href="../index.html">Home</a></h4>
+      <h4><a class="nav-link" href="../about.html">About</a></h4>
+    </div>
+  </div>
+</nav>
+
+
+<head>
+<style>
+
+  body
+  {
+background-color: peachpuff
+  }
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/arduino-light.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/arduino.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+</style>
+</head>
+
+
+
+
+
+
+<body>
+
+
+<xmp theme="journal" style="display:none;">
+
+  ### Week Four: Microcontroller Programming
+
+  <em>Added Feb 21 </em>
+
+
+
+  <h4>The Idea</h4> 
+
+  I am very new to microcontroller progrramming and anything "coding" doesn't seem to come naturally to me. 
+
+  The goal for this week was to program both inputs and outputs. The input would be a series of switches/ buttons and the output would be a DC motor. The original thought came about to make a "useless box" which would have some character and would react to more than one switch.
+
+  That proved too ambitious, and wanting to focus on the electronics programming thats where I started. 
+  The project would have needed a motor, and a microcontroller (through I thing this could feaibly be done using a series of relays) programmed to compliment a mechanical design that would allow a hidden arm within a small box to "come out" of the box and turn off, either of two swithches that are attatched to the  box.  The habitant of the box is a happy state when the switches are off, and otherwise will always turn them off. 
+
+Some of the basic requirements for the project were: 
+ 
+  1.) movement along a given axis, that is as far as electronics goes: output control of a motor. 
+
+
+  For now I decided to stick to a DC motor and figure out how to make the system work without a servo on this axis.
+
+
+  2.) input from two switches, these would be ones that the habitant of the box reacts to
+
+
+  3.) way of knowing at which place along the x-axis the little arm is. 
+
+
+A set of limit switches and a mechanical design in which the system is either at it's limit or moving towards it's limit seemed to be a solution.
+Mechanically this would mean creating the box in such a way in which the habitant of the box will run until it hits a limit switch at either of its extreme positions along the left or right. 
+
+Electornically this just meant having two normally open switches that when either is activated it would both stop the motor from moving any further in this direction and while it is activated the position of the habitant is technically known. (though with some thinking, for a highrisk situation a limit switchs that was normally closed would make more sense)
+
+<p>Here is a photo of what my intial design thinking looked like on paper. </p>
+
+![image of wiring](./drawing.png) 
+
+
+  
+<h4>  Electronics Design </h4>
+
+<h5>Code Set-up </h5>
+
+For output I use a L9110 H Bridge Power Driver to drive the DC motor with internal gearbox. This sets the pins 
+<pre><code class="language-arduino">
+  int A1A = 3;// motor output via bridge
+  int A1B = 4;// motor output via bridge
+</pre></code>
+
+There will four swithes as input. For ease and efficiency I use shorthand for the switches and assign them to pins according to the following. 
+<pre><code class="language-arduino">
+  int LL = 5; //left limit switch 
+  int LS = 6; //left toggle switch 
+  int RS = 7; //right toggle switch
+  int RL = 8; //right limit switch
+</code></pre>
+
+I don't want to have to use external resistors so I use the internal resistors for the pins of the input switches. I use pull-up resistors so the state of the switches which are normally open will be HIGH when they are not activated and LOW when they are activated. 
+ <pre><code class="language-arduino">
+  pinMode(LL, INPUT_PULLUP);
+  pinMode(LS, INPUT_PULLUP);
+  pinMode(RS, INPUT_PULLUP);
+  pinMode(RL, INPUT_PULLUP);
+
+  pinMode(A1A, OUTPUT);
+  pinMode(A1B, OUTPUT); // outputs
+  </pre></code>
+
+
+I use the following shorthand to check the status of the input level at the pin for each switch. This just keeps me from typing digital read over and over in my code
+  <pre><code class="language-arduino">
+int LLstate = digitalRead(LL);
+  int LSstate = digitalRead(LS);
+  int RSstate = digitalRead(RS);
+  int RLstate = digitalRead(RL); // set value names for read data
+  </code></pre>
+
+<h5>Code Logic</h5>
+
+Now with all that setup, time for  the logic of the code
+
+Assume that the machine will always want to be in a state of rest. As its most important condition, it will want to be at either of the extremes in its axis of motion, so if it is both the case that one of the limit switches is tripped and both of the toggle switches are off the machine should be doing nothing. In the code this means the following
+
+<pre><code class="language-arduino">
+
+if 
+((RSstate==HIGH)&&(RLstate == HIGH)&&(LLstate == HIGH)&&(LSstate == HIGH))// if these conditions are satisfied 
+{
+digitalWrite(A1A, LOW); // stop the motor,
+digitalWrite(A1B, LOW);
+}
+</code></pre>
+
+Now anytime that first condition isn't satisfied, this motor should be doing something, that is moving in either of the relevant directions. 
+
+The first is 
+<pre><code class="language-arduino">
+else if ((RSstate==LOW)&&(RLstate == HIGH)) // right switch tripped, but not at right position,
+  { digitalWrite(A1A, HIGH); // so move motor right
+    digitalWrite(A1B, LOW );
+  }
+</code></pre>
+
+The second is
+<pre><code class="language-arduino">
+   else ((LSstate==LOW)&&(LLstate == HIGH)); // left switch tripped, but not at left
+  {digitalWrite(A1A, LOW); // motor left
+   digitalWrite(A1B, HIGH );
+  }
+</code></pre>
+
+
+
+
+
+<h4>Test Runs</h4>
+At first, I was running this code and I got a wierd mix of speeds when I would give the relevant set of inputs, I thought that essentially what was happening was that a HIGH or LOW signal was being sent at the same time, thus giving the variable speeds, but I am really unsure.. 
+
+
+After so much fincking with even these simple inputs, I realize that I have a lot to learn. I thought that the logic of the code  would work without a hitch, but it turns out that now if I want the machine to keep moving after it reaches one of the limit switches something will have to change. 
+
+Anyway here is a gif of the two center swithches doing what they are supposed to (almost).
+![video of pressing buttons](./buttons.gif)
+
+ 
+
+  <h4>Final Product, well... almost </h4>
+<p>Here is a photo of the wiring layout </p>
+![image of wiring](./wiring.png) 
+
+
+
+
+  
+
+  <h4>Take-aways</h4>
+  It would be good to be able to do a number of things at once in a code learning multi-tasking is a must moving forward. 
+
+
+
+
+
+
+
+
+</xmp>
+</body>
+
+<script src="https://strapdownjs.com/v/0.2/strapdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
+
+</html>

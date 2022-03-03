@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<title>PHYSCI 70: Intro to Digital Fabrication </title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style.css" rel="stylesheet">
+
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <div style="align-items: left; justify-content:left;" class="container-fluid">
+    <h3 style="margin: 15px"> PHYSCI 70: Intro to Digital Fabrication</h3>
+    <div class="navbar-nav">
+      <h4></h4>
+      <h4><a class="nav-link" href="../index.html">Home</a></h4>
+      <h4><a class="nav-link" href="../about.html">About</a></h4>
+    </div>
+  </div>
+</nav>
+
+
+<head>
+<style>
+
+  body
+  {
+background-color: peachpuff
+  }
+
+
+</style>
+</head>
+
+
+
+
+
+
+<body>
+
+
+<xmp theme="journal" style="display:none;">
+
+
+
+  ### Week Five: 3D Printing 
+
+  <em>Added March 1</em>
+
+
+
+  <h3>3D Printing</h3>
+
+<h4>Item One: Spring</h4>
+I wanted to pring objects with different geometries and try to wrap my head around what the advantages of 3D printing are. I began CAD modeling in Fusion, but quickly realized that there is both some gaps in my knowledge of how to use the program  alongside what I think is some lack of feartures for quikly making complex geometries and patterns. Nonetheless I wanted to know what the process of modeling in Fusion, exporting to Prussa and printing was like. I tried and fialed multiple prints of this object.
+
+I learned of the essential feature of Prussa Slicer beings able to add in support material. I too was running into problems using a .15 mm layer, 0.20 worked much better, but I'm not sure why. 
+
+This item is a good candidate for 3D printing, because it woould be difficult (impossible?) to mill. Even on a 5-axis machine, I cannot see how any bit would be able to subtract the material to make the internal contours to the spring's geometry. It seems as though there will always be a peice that cannot be reached internally. 
+
+<p>Here is a picture of </p> 
+  ![image of spring](./spring.png) 
+  
+<p>
+  <a download href='./spring.f3d'>Download the 3D Model</a>
+</p>
+
+  <p>
+  <a download href='./spring.stl'> Download the STL File</a>
+</p>
+
+<p>
+  <a download href='./spring.gcode'>Download the G-Code File</a>
+</p>
+
+
+<h4>Item Two: Mobius Strip</h4>
+The item is a bit commonplace as far as cool geomtries go, but I wanted to have something with this sort of curvature to think about how an item, to be successully milled might have to be turned upside down, or more generally I guess, would need to be clammped in multiple positions in order to be completed. My thinking so far is that a mill likely would be able to make this part, but with multiple repositionings. This seems time intensive. 
+
+<p>On this one I learned how to load a new filament into the printer. </p>
+
+
+<p>Here is a picture of the final printed strip </p>
+![image of strip](./strip.png) 
+  
+<p> This object was found  <a href="https://thingiverse.com">here</a> </p>
+
+  <a download href='./strip.stl'> Download the STL File</a>
+
+  <a download href='./strip.gcode'>Download the G-Code File</a>
+
+
+<h4>Item Three: Pencil Holder with Multiple Spiraling Flutes</h4>
+This item I too think would be  difficult to mill one for flutes that run up and down the sides, It is unclear to me that a machine would be able to make these easily, but it does seem possible. 
+
+The bigger problem, I think, is the hidden sort of under pot. If there is a concave shape, say a sort of cone or bowl, the apex pointing away from a plane, I think impossible to create by subtractive methods this concave bowl is there is, on that plane a peice of material that does not allow a bit to reach all parts of that bowl.
+
+<p>On this one I learned to check scale/ dimensions before printing because this pencil-holder is definetely too small for your average-sized pencil.</p>  
+
+<p>Here is a picture of the finished printed pencil holder. </p>
+![image of pencil holder](./holder.png)
+  
+  <p>This object was found  <a href="https://thingiverse.com">here</a></p>
+
+  <p>
+    <a download href='./holder.stl'> Download the STL File</a>
+  </p>
+
+  <p>
+    <a download href='./holder.gcode'>Download the G-Code File</a> 
+  </p>
+
+
+  <h3> Scanning</h3>
+  Picking a program: 
+  After looking at all the avaliable resources listed on the class website, I was so physched to use ALICE VISION. I began the download process, but realized that the bootcamp partition for Windows on my MAC didn't have enough storage to handle another program. 
+
+<p>
+  I then, when stumbling around the lab, found the SENSE scanner by 3D Systems. I thought that this was sure to work so much better than what I was going to acheive with ALICE VISION. 
+</p>
+
+  <p>
+    I toyed around with it first with black items, which I thoght would work best for scanning in stark contrast to the white table one which I was working. The scans started out alright in the direction from which there was more light. It was when I got around to a certain point, where there were shadows falling from the item onto the table that I ran into problems. 
+    </p>
+
+  <p>I learned here that the user's manual was serious, shadows can mess up your scan. 
+    </p>
+  
+
+
+<h4>First Scan </h4>
+The next scan was of a metal ring, the very one we use to hold material down on the laser cutter. It seemed to work better in new light, but when I got around to a certain point, looking only at the side of the ring, where the hole isn't visible, the scan continued to fail to recongize the object.
+
+<p>For comparison, a picutre of the ring </p> 
+    ![image of ring](./ring.png) 
+
+<p>A thumbnail of the scan </p>
+![image of ring scan](./ring_thumbnail.png) 
+
+  
+    <a download href='./ring.stl'>Download the scan STL File </a> 
+
+
+<h4>Second Scan</h4>
+    The final scan was of something I cut a few weeks ago for our 2D cutting week. This was of a cardboard hemisphere.
+    <p> A picture of the hemisphere</p>
+    ![image of hemi](./hemi.png)
+
+ <p> A thumbnail of the scan </p>
+ <p> ![image of hemi scan](./globe_thumbnail.png) </p>
+
+<p>
+<a download href="./globe.stl"> Download the Scan STL File </a>
+</p>
+
+
+   
+
+
+ <h3> Final Project Porgress</h3>
+
+I reached out to Ely who I converse with during our session at the SEC. He was using motion sensors to map movement in space for soft robotics, so he seemd like a great resource. We will be meeting sometime next week, hopefully after some more progress in my planning.
+
+I am more motivated by the idea to do option number two that I listed on my final project phase–– that is an electronic measuring tool. 
+
+
+   
+
+
+
+
+
+</xmp>
+</body>
+
+<script src="https://strapdownjs.com/v/0.2/strapdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
+
+</html>
