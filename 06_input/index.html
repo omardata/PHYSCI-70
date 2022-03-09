@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<title>PHYSCI 70: Intro to Digital Fabrication </title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style.css" rel="stylesheet">
+
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <div style="align-items: left; justify-content:left;" class="container-fluid">
+    <h3 style="margin: 15px"> PHYSCI 70: Intro to Digital Fabrication</h3>
+    <div class="navbar-nav">
+      <h4></h4>
+      <h4><a class="nav-link" href="../index.html">Home</a></h4>
+      <h4><a class="nav-link" href="../about.html">About</a></h4>
+    </div>
+  </div>
+</nav>
+
+
+<head>
+<style>
+
+  body
+  {
+background-color: peachpuff
+  }
+
+
+</style>
+</head>
+
+
+
+<body>
+
+
+<xmp theme="journal" style="display:none;">
+
+
+
+  ### Week Six: Electronic Input Devices
+
+  <em>Added March 8</em>
+
+
+
+  <h3> Part One: Capacitive Sensor</h3>
+
+<h4>Rotary Sensor: Fabrication </h4>
+I wanted to make a simple capacitive sensor to get an intuitive sense of how the sensor responds to simple changes. I was inspired by Rob Hart's "Crude Rotary Sensor" found   <a href="https://roberthart56.github.io/SCFAB/SC_lab/Sensors/tx_rx_sensors/index.html">here</a> 
+
+I had no idea what  the sensitivity or accuracy of the sensor would be, but I wanted to have a way of easily setting up repeated measurements. So I picked a random measurement, my rotary sensor would be based on a half-circle with a radius of 1.5 inches.
+
+The idea was to cut two circular peices of arylic, stack them together, pass a screw through a hole in the center to allow the two plates to slide against each other. For reapitiblity I added nothches at 45 degrees around each of the circles to allow to easy alignment of the sensor to take repeatible measurements. 
+
+I next cut one circle of copper material to make the plates of my capacitor. A circle of 3 inches in diameter, was divided into halve circles. 
+It was now time to solder a wire onto each copper half-circle to be able to connect it to my Aruduino. Testing my solder on a scrap peice of material, and before attatching the circles to the arclyic was a good move. 
+
+
+These adhesive backing of the copper material made it easy to paste the copper to the acrlyic peices, being careful to align the halves with nothches.
+
+
+<p>Here is a gif of the sensor, demonstrating some movement of the two rotating planes </p> 
+  ![video of sensor](./sensor1.gif) 
+  
+
+<h4>Measuring Quantities</h4>
+The wires from the two plates of the capacitor connect directly to the arduino board. I could have used a two resistors between one of the pins and ground to stabalize the input, but I wanted to see first how the sensor would behave without the reistors.
+
+I altered the basic code proivded by Rob Hart here to get a simple reading from my sensor. The most relevant peice of code is here. The wiring is simpple, one plate is connected is connected to pin 4, this is the one whose voltage we are periodically altering. The other plate is connceted to pin A0, through this plate  we are getting measurements in repsonse to the manipulations of voltage in the other. 
+
+
+<pre><code class="language-arduino">
+void setup() {
+pinMode(4,OUTPUT);      //setting pin 4 to provide the voltage step
+Serial.begin(9600);
+}
+</pre></code>
+
+<p> This code  provides the proper sequence of toggling the voltage on one plate and measuring voltage on the other plate. </p>
+
+<pre><code class="language-arduino">
+void loop() {
+   digitalWrite(4,HIGH);              //Step the voltage high on conductor 1.
+   read_high = analogRead(A0);        //Measure response of conductor 2.
+   delayMicroseconds(100);            //Delay to reach steady state.
+   digitalWrite(4,LOW);               //Step the voltage to zero on conductor 1.
+   read_low = analogRead(A0);         //Measure response of conductor 2.
+   diff = read_high - read_low;       //desired answer is the difference between high and low.
+
+Serial.println(diff);
+//delay(100);
+}
+</pre></code>
+
+Uploading these peices of code mu board and opening the serial plotter in Arduino I could observe the changes in the data received by the arduino in response to changes in my set-up.
+
+
+The variable that I hoped to measure with accruacy was the angle of rotation of the two plates. It seemed releveant right off the bat that my data reflected not only change to the angle of rotation of the plates, but also to changes in position of the sensor, the placement of the lead-wires, proximity to the board. Observing this was a good reminder that for my measurements I would do well to keep factors that I am not hoping to measure constant. So in subsequnt measurements I tried to keep everything as similar as I could, aside from chnages in the rotation of the plates. 
+
+
+
+<h4>Data and Calibrating Rotary Sensor </h4>
+
+
+<table>
+  <tr>
+    <th>Position of Overlap in Degreees</th>
+    <th>Reading 1</th>
+    <th>Reading 2</th>
+    <th>Reading 3</th>
+    <th>Average</th>
+  </tr>
+
+
+  <tr>
+    <td> 0</td>
+    <td> 132</td>
+    <td> 134</td>
+    <td> 135</td>
+    <td> 134</td>
+  </tr>
+
+
+<tr>
+    <td> 45</td>
+    <td> 136</td>
+    <td> 138</td>
+    <td> 139</td>
+    <td>138 </td>
+  </tr>
+
+
+<tr>
+    <td> 90</td>
+    <td> 159</td>
+    <td> 157</td>
+    <td> 149</td>
+    <td> 155</td>
+  </tr>
+
+<tr>
+    <td>135 </td>
+    <td> 158</td>
+    <td> 158</td>
+    <td> 156</td>
+    <td> 157</td>
+  </tr>
+
+<tr>
+    <td>180 </td>
+    <td> 172</td>
+    <td> 160</td>
+    <td> 160</td>
+    <td> 164</td>
+  </tr>
+
+</table>
+
+After playing with the sensor unsystematically it was time to see if I could acurately measure degrees with the sensor. Using the notches on the acrylic plates as reference points, I took a series of measurements. So far my approach wasn't methodologically robust or statistically sophisticated, but I think it largely produced the same conclusion: something about my set-up makes it so that it would be very difficult to say anything from a set of data from the sensor other than the sensor is in a state of much or little overlap. Really, what this amounts to is being able to measure  with confidence that the sensor is roughly at 0 degrees or at 180 degrees. To do more than this with much accuracy, at least based on my prelimary measurements seems unlikely. 
+
+
+
+
+
+<h3> Part Two: bHall Effect Sensor for Measuring Linear Distance </h3>
+
+<h4>Initial Set-up</h4>
+I wanted to try a different sensor, and I was so surprised with the accuracy of this sensor given the inaccuracy of my previous sensor. This sensor is analog and you can <a download href='./spec.pdf'>download the date sheet here </a> 
+ 
+The wiring set up was quite starightforeward, you can use  the diagram below as A guide, but note that in my set-up, the orange wire should go to pin A1 on the Arduino. Pictured is a 10k resistor. 
+![image of wiring diagram](./wiring.png)
+
+
+The code was quite straight forwards
+
+<pre><code class="language-arduino">
+int sensorPin = A1;
+int counter = 0;
+
+void setup() 
+{
+ Serial.begin(115200); // setup serial rate
+
+ pinMode(sensorPin, INPUT); // setup pin A1 as input
+}
+
+void loop() 
+{
+
+ int sensorValue = analogRead(sensorPin); // read the input to the sensor
+
+ Serial.println(sensorValue); //print the values from the sensor. 
+ delay(10);
+}
+</pre></code>
+
+
+<h4>Measuring Quantities</h4>
+To systematically measure the sensor's response to the proximity of a magnet, I first cut a set of ten peices of carboard of equal size and thickness. 
+
+I then began staking the peices of cardboard, one by one, and taking measurements with the magnet in the  same position, squarely on top and centered over the sensor. 
+
+To gather the data I used the serial plotter, which in each case demonstrated a remarkably smooth signal, so it was easy to get an decent measurement.
+
+Here is the data in a graph.
+![image of graph](./graph.png)
+
+
+For reference I took a measurement with the magnet outside of the range of the sensor. So the final cardboard, putting the magnet at a distance of 29 mm away was really the end of the sensor even picking up the presence of the magnet. (I used the north-polarity field of the magnet, whose presence decreases the quiescent reading on the sensor, so as the magnet is moved further away from the sensor, the reading will increase approaching that of the quiescent state).
+
+I should have completed a run with thinner peices of carboard as my increments as to collect more data within the functional range of the magnet. But as it stood I am confident in being able to repeatidly and accurately measuring distances between 0 mm and  12mm 
+
+Here is two pictures of the set-up. 
+![image of hall sensor testing ](./hall.png)
+![image of hall sensor testing ](./hall2.png)
+
+
+
+
+
+
+
+
+</xmp>
+</body>
+
+<script src="https://strapdownjs.com/v/0.2/strapdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
+
+</html>
