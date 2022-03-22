@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<title>PHYSCI 70: Intro to Digital Fabrication </title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style.css" rel="stylesheet">
+
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <div style="align-items: left; justify-content:left;" class="container-fluid">
+    <h3 style="margin: 15px"> PHYSCI 70: Intro to Digital Fabrication</h3>
+    <div class="navbar-nav">
+      <h4></h4>
+      <h4><a class="nav-link" href="../index.html">Home</a></h4>
+      <h4><a class="nav-link" href="../about.html">About</a></h4>
+    </div>
+  </div>
+</nav>
+
+
+<head>
+<style>
+
+  body
+  {
+background-color: peachpuff
+  }
+
+
+</style>
+</head>
+
+
+
+<body>
+
+
+<xmp theme="journal" style="display:none;">
+
+
+
+  ### Week Seven: Electronic Output Devices
+
+  <em>Added March 22</em>
+
+
+
+  <h3> The Idea</h3>
+I wanted to use a new output device, and the toss up was between a servo and a stepper.
+
+I liked the idea of working with presision control and with a limited range of motion or rotation–– I chose the servo. 
+In class we had already learned to do simple moves with the servo, including a set-up using a potentiometer from last class. My project for this week expands on this, combining the idea to do some sort of interactive art. 
+
+The first idea was to make something that could blink–– I was thinking a sculpture like thing that would have two eyes,with shutters that would imitate the action of blinking. The interactive part could be manipulating the machine to blink, or rather to control the process of closing/ opening its eyes. 
+
+I settled on  the idea that  I could use a potentiometer to control  movement of the servo, which would actuate movement in the eyes. This could mean one potenitometer per eye, or not, I'll decide this later. 
+
+The idea needing of needing to touch the machine all the time to make it move seemed lame–– a sort of record function would be cool. I would alter the potentiometer, see the effect in real-time and the micro-controler would then repeatedly play back that movement. 
+
+This week I focus on the basic electronics, code, and prepare the files for the fabrication of the components into next week. ( I am now leaning towards the idea of molding a single large eye with an internal aperature, that might have a hidden drive. Maybe a model of the human eye that demonstrates responsiveness to the ambient light...I might be onto a new final project idea)
+
+After a bit of searching for ideas for how to best set-up the code work, I came across <a href="https://roberthart56.github.io/SCFAB/SC_lab/Sensors/tx_rx_sensors/index.html">a project </a> that controlled as outputs a servo and an indicator LED, using a potentiometer, and pushbutton as inputs. 
+
+
+<h3>The Set-up</h3>
+
+The Servo is connected to the ground and 3V on the breadboard, and the control wire is directly connected to digital pin 3 on the arduino. 
+The potentiameter goes to pin A0, it is an analog input that will be used to control the movement of the Servo.
+The LED is connected to ground and pin 13, using a 10k resistor.
+A normally-open push button is connected to ground and digital pin 2.
+
+
+As a guide the following wiring diagram provided at the link mentioned above and be used. 
+
+<p>Here is a picture of the wiring diagram sourced from the link mentioned above </p> 
+  ![picture of wiring](./wiring.png) 
+  
+  <p>Here is a picture of my wiring, which is a little bit more cluttered than the one picutures above, but works that same </p> 
+  ![picture of wiring](./mywiring.jpg) 
+
+<h3> Programming</h3>
+
+Defining the pins and inputs/ outputs 
+<pre><code class="language-arduino">
+Servo myServo;
+int pot= A0;
+int led= 13;
+int but= 2;
+
+void setup() {
+ pinMode(led, OUTPUT); //status led
+ pinMode(but, OUTPUT);// pushbutton
+ myServo.attach(3);
+</pre></code>
+
+Defining the timing mechanisms
+<pre><code class="language-arduino"> 
+float resolution = 1000;//MUST be less than EEPROM.length()
+float recordTime = 5; //delay time
+bool recording = false;
+</pre></code>
+
+
+
+
+
+Part-one, using an if-else funciton. Sets what the board is doing when recording
+<pre><code class="language-arduino">
+void loop() {
+ if (recording == true) {//record
+   for (int i = 1; i <= resolution; i++) {
+     digitalWrite(led, HIGH); //light status led
+     int val = map(analogRead(pot), 0, 1023, 0, 180);
+     EEPROM.write(i, val);
+     //Serial.println(EEPROM.read(i));
+     myServo.write(val);
+     delay(recordTime);
+   }
+   digitalWrite(led, LOW); //turn off status led
+   delay(1000);//give time for person
+   recording = false;
+ }
+</pre></code>
+
+
+
+
+<pre><code class="language-arduino">
+ else {
+   for (int i = 1; i <= resolution; i++) {//playback
+     if (digitalRead(but) == 0) {//stop playback and record new values
+       recording = true;
+       break;
+     }
+     int readval = EEPROM.read(i);
+     myServo.write(readval);
+     //Serial.println(readval);
+     delay(recordTime);
+   }
+   digitalWrite(led, HIGH); //show a new repeat
+   delay(100);
+   digitalWrite(led, LOW);
+ }
+}
+</pre></code>
+
+
+
+<h3> Test Runs</h>
+GIF of recording and playback.. 
+
+
+
+<h3>Preparing CAD Files for Next Week</h3>
+
+I became kinda fascinated with the idea of making a mechanical aperature. The coolest resource that I found so far  . There is quite a bit of info here including some cool math on the coverage and sized of aperature. There are a few files that I would like to perpare as far as the aperature goes. They can be <a href="https://iris-calculator.com/">here </a> 
+
+I also like the idea of embedding such an aperature in a resin model of an eye. Maybe routing (or 3D printing a mold and then casting a product would be one way to go....) 
+Here is one example.
+
+![picture of eye](./eye.png)
+
+
+
+<h3>Measuring the time interval</h3>
+I still need to do this, or figure out what doing this entails.. to be updated soon. 
+
+
+
+
+</xmp>
+</body>
+
+<script src="https://strapdownjs.com/v/0.2/strapdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
+
+</html>
