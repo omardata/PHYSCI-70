@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<title>PHYSCI 70: Intro to Digital Fabrication </title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style.css" rel="stylesheet">
+
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <div style="align-items: left; justify-content:left;" class="container-fluid">
+    <h3 style="margin: 15px"> PHYSCI 70: Intro to Digital Fabrication</h3>
+    <div class="navbar-nav">
+      <h4></h4>
+      <h4><a class="nav-link" href="../index.html">Home</a></h4>
+      <h4><a class="nav-link" href="../about.html">About</a></h4>
+    </div>
+  </div>
+</nav>
+
+
+<head>
+<style>
+
+  body
+  {
+background-color: peachpuff
+  }
+
+
+</style>
+</head>
+
+
+
+<body>
+
+
+<xmp theme="journal" style="display:none;">
+
+
+
+  ### Week Eight: CNC Milling, Molding & Casting
+
+  <h3> The Idea</h3>
+I wanted to integrate both peices of my assignment this week.
+
+I've also wanted to make something for my girlfriend. She is a fan of Cookiemonster from Sesame Street. She also likes keychains. 
+
+The idea = Cookiemonster + Keychain
+
+
+  <h3> First Steps, Digital Prep</h3>
+First, find a photo that will lend itself to easily being traced.
+Import to Abode Illustrator, trace, edit dimensions. Approximately 1.7 inches seems okay for a keychain. Export traced image to SVG for use in Fusion 360.
+
+<p>Here is a picture of the original picture, note the color scheme because I reference it later</p> 
+  ![picture of cookiemonster](./cookie.png) 
+
+<p>Open the image in Fusion using import SVG function. </p>
+
+<p>Now we can extrude the peices that we want to extrude. Now that I was looking at the image in the 3D programming it was time to make some more decisions as to what I wasnted the final product to look like, and how I would manufacture it. </p>
+
+<br>
+
+<p> I decided that I would: </p>
+
+First cut something into a Wax block using CNC Mill SRM-20
+<br>
+Use that wax block as a die into which I would cast silicone. This won't be used directly in the final product
+<br>
+Use that silicone mold to cast another part. This will be part of the final product.
+<br>
+Use the original wax block to cast anther piece. This will be used in directly in the final product
+<br>
+3D print a second mold 
+<br>
+Use that 3D printed mold to cast the final keychain outer housing, after placing the cookiemonster peices inside. The cookie monster peices will be embedded in this final housing. 
+
+<h3> CNC Wax Block</h3>
+Open the SVG cookiemonter image using import SVG function. 
+Select the area that was the black outline around cookiemonsters blue face, and the area that forms the black eyes and mouth. Extrude that selected area to .125"
+Create a wall around theb extruded cookiemonster face, also close the bottom of the box, the walls are .125" heigh, and the bottom "floor" of the mold is also .125" thick 
+
+<p>Here is a picture of the profile in fusion</p> 
+  ![picture of profile in fusion](./profile.png) 
+
+<br>
+Export the file to an SVG, save to USB, open on SMR-20 in shop. Given the geometry of the profile, I figured I could just cut this in one pass using the 1/16" end-mill. 
+(Note: Here I spent a lot of times not knowing why the window used to run the SRM-20 kept crashing. Finally figured out simple mistake: dimension scale factor was wayyyy off.)
+<br>
+I used compressed air to clean off some of the remaining burrs on the edges after CNC milling. 
+
+
+<p>Here is a picture of the milled wax block</p> 
+  ![picture of waxblock](./wax.png) 
+
+
+<h3> Making the 3D-Printed Mold</h3>
+Using the same traced image of cookie monster, delete all other lines but the outtermost outline/ shillouette of coookiemonster. 
+Scale this outline to a larger size, I'm allowing for this outline to be about .25" larger than cookiemonster's face.
+Place a circle around this cookiemonster outline, select the area that lies between the two lines, and extrude it to 0.5"
+Enclose the bottom of the object to form a usable mold. 
+
+
+
+Export the file to SVG, and open in prussa slicer and print
+<br>
+print time: 38 minutes
+
+<p>Here is a screenshot of the mold sliced in Prussa Slicer</p> 
+  ![picture of 3D mold model](./holder.png) 
+
+<p>Here is a photo of the printed mold </p> 
+  ![picture of 3D printed mold ](./holderprint.png) 
+
+
+
+<h3> Casting and Molding </h3>
+The first step was the prepare the mold that I wanted to use to cast the black cookiemonster outline. This meant pouring silicon mold in the CNC Milled Wax block.
+I used Smooth-On Silicon mold first. It entialed mixing a two part product at a 1:1 ratio, and mixing thoroughly before pouring. The mixture I used seemed to be a bit old, or perhaps someone forgot to close the lid properly.. either way the final mixture was much more viscous than I expected. Depsite much mixing, and tapping and hoping to get the silicone into each nook of the wax mold, the final silicon prodcut was far from what I wanted. 
+
+
+<p>Here is a photo of the mold that I cast </p> 
+  ![picture of mold that I cast](./mold.png) 
+
+
+<h3>To Be Completed...</h3>
+Because there was no more Smooth-On Silicone product, I will have to return to this and complete more casts of the two internal components and the external face of the key-chain that holds these internal components. But as far as the week assignment I have complted the necessary tasks and have a better idea of what to expect for future casting.. 
+
+
+I have the idea of making a vibrating platform for easier casting. 
+
+
+</xmp>
+</body>
+
+<script src="https://strapdownjs.com/v/0.2/strapdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<title>PHYSCI 70: Intro to Digital Fabrication </title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style.css" rel="stylesheet">
+
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <div style="align-items: left; justify-content:left;" class="container-fluid">
+    <h3 style="margin: 15px"> PHYSCI 70: Intro to Digital Fabrication</h3>
+    <div class="navbar-nav">
+      <h4></h4>
+      <h4><a class="nav-link" href="../index.html">Home</a></h4>
+      <h4><a class="nav-link" href="../about.html">About</a></h4>
+    </div>
+  </div>
+</nav>
+
+
+<head>
+<style>
+
+  body
+  {
+background-color: peachpuff
+  }
+
+
+</style>
+</head>
+
+
+
+<body>
+
+
+<xmp theme="journal" style="display:none;">
+
+
+
+  ### Week Nine: Radio, WiFi, Bluetooth (IoT)
+
+
+  <h3> The Idea</h3>
+I first wanted to use a microcontroller to communicate over WIFI to a Firebase data field. It gave me quite a bit of trouble and I soon abandoned this idea. 
+
+<h3> The Idea 2.0</h3>
+After browsing around the RandomNerds site for ESP-32CAM tutorials, I came across <a href="https://randomnerdtutorials.com/esp32-cam-send-photos-email/"> a tutorial</a>  that I liked. I would follow the tutorial to program my microcontroller to take a photo, and send it via STML protocol to my email address. I figure that something like this coudld be used for a photo booth style type of thing.
+
+<a href="https://randomnerdtutorials.com/esp32-cam-send-photos-email/"> </a> 
+
+
+<h3>Basic Set-up</h3>
+
+In order to communicate to the microcontroller from my computer I have to do a few things before moving on. Because the ESP32-CAM doesn’t come with a USB connector, I you need an FTDI programmer to upload code through the U0R and U0T pins (serial pins) on the mircrocontroller. For the FTDI I am using and the ESP-32CAM  the following wiring diagram gives me what I needed to do. 
+<br>
+
+<p>Here is a picture of the wiring diagram for the FTDI to ESP-32CAM</p> 
+  ![picture of wiring diagram](./wiringftdi.png) 
+  <br>
+
+Another thing to do in prepation is to downlaod the appropriate board library into arduino, 
+I also need to download the CP210x USB to UART Bridge Virtual COM Port (VCP) drivers. These are  required for device operation as a Virtual COM Port to facilitate host communication with CP210x products. These can be accessed <a href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers"> here</a>.  
+
+Finally, I need to download the appropriate libraries in Arduino for the email protocols that I will be using. I go to go to Sketch > Include Library > Manage Libraries and from there search for, find, and download the ESP32 Mail Client by Mobizt. 
+
+<h3> Setting up a new email</h3>
+I took RandomNerd's advice to setup and use a new email for this project. The setup is strightforward but I will need to setup my account in such a way that allows the  microcontroller to use this new email account to send emails. This entails creating an app password, and noting it because it will be used in the code that is uploaded to the microcontroller. 
+
+
+<h3>The Code</h3>
+The code  is largely pulled from RandomNerd Tutorial–– <a href="https://raw.githubusercontent.com/RuiSantosdotme/ESP32-CAM-eBook/master/Code/Module_3/Send_Photos_Email/Send_Photos_Email.ino"> click here for the raw code </a>. 
+
+The basic idea is that when the ESP-32CAM is powered, it first connects to a local Wifi network, when you press the reset button on the ESP it  takes a photo, saves to spiffs, and then sends if from the email account that I created to another email.  One cool thing about that code that I like and that I will try to keep in mind for future projects is that there is a built-in feedback mechanism that prints the current state or status of the machine to the serial monitor. This takes away a lot of guess work as to what the microcontroller is doing–– from connnecting to Wifi, taking a photo, sending the photo.
+
+Anyways as for the major features of the code, the necessary libraries are first included
+<pre><code class="language-arduino">
+#include "esp_camera.h"
+#include "SPI.h"
+#include "driver/rtc_io.h"
+#include "ESP32_MailClient.h"
+#include <FS.h>
+#include <SPIFFS.h>
+#include <WiFi.h>
+</pre></code>
+
+I need to define a few crucial elements used in the code. One set of the are the cedentials for connecting to a local Wifi network. This taken care of by the following code snippet which includes the info for the network that I was using in the lab.
+
+<pre><code class="language-arduino">
+const char* ssid = "MAKERSPACE";
+const char* password = "12345678"
+</pre></code>
+
+Another important set of denfinitions are those needed for the email sending
+<pre><code class="language-arduino">
+// To send Emails using Gmail on port 465 (SSL), you need to create an app password: https://support.google.com/accounts/answer/185833
+#define emailSenderAccount    "fablabtestacc@gmail.com"
+#define emailSenderPassword   "mypassword"
+#define smtpServer            "smtp.gmail.com"
+#define smtpServerPort        465
+#define emailSubject          "ESP32-CAM Photo Captured"
+#define emailRecipient        "mypersonalemail@gmail.com"
+</pre></code>
+
+
+
+With this the code was ready to go. 
+
+
+<h3>Test Runs</h3>
+I used my computer to both power and monitor the microcontroller, but really this code would have worked just as well connecting to a battery or hardwire powersorce. I could have been nice to wire and code a few indication features so that without opening the serial port I could tell when the board was connected to wifi, when it was going to take a photo, and when an email was successfully sent.  
+
+<p>Either way, here is a screen recording of the serial monitor while the microcontroller is doing its thing. </p> 
+<br>
+  ![video of screen recording](./monitor.gif) 
+<br>
+
+Here are two clips,the first shows intiating the photo taking function of the microcontroller. The second shows a few minutes later receiving the notification of the trasnmitted email on my iPad. 
+  
+  <p>
+  ![video of initiating photo](./start.gif) 
+  ![video of receving email](./end.gif)
+  </p>
+
+ <p>Here is screenshot of the email that I received on one of the test runs </p> 
+  ![photo of received email](./email.png) 
+
+
+
+
+</xmp>
+</body>
+
+<script src="https://strapdownjs.com/v/0.2/strapdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
+
+</html>
